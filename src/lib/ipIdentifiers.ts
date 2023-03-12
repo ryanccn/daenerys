@@ -1,4 +1,4 @@
-import { parse, parseCIDR } from 'ipaddr.js';
+import ipaddr from 'ipaddr.js';
 
 const CLOUDFLARE_IPV4 = [
 	'173.245.48.0/20',
@@ -29,15 +29,15 @@ const CLOUDFLARE_IPV6 = [
 ];
 
 export const isCloudflareIP = (ip: string) => {
-	const pIP = parse(ip);
+	const pIP = ipaddr.parse(ip);
 
 	if (pIP.kind() === 'ipv4') {
 		for (const ipv4Range of CLOUDFLARE_IPV4) {
-			if (pIP.match(parseCIDR(ipv4Range))) return true;
+			if (pIP.match(ipaddr.parseCIDR(ipv4Range))) return true;
 		}
 	} else if (pIP.kind() === 'ipv6') {
 		for (const ipv6Range of CLOUDFLARE_IPV6) {
-			if (pIP.match(parseCIDR(ipv6Range))) return true;
+			if (pIP.match(ipaddr.parseCIDR(ipv6Range))) return true;
 		}
 	}
 
@@ -47,10 +47,10 @@ export const isCloudflareIP = (ip: string) => {
 const VERCEL_IPV4 = '76.76.21.0/24';
 
 export const isVercelIP = (ip: string) => {
-	const pIP = parse(ip);
+	const pIP = ipaddr.parse(ip);
 
 	if (pIP.kind() === 'ipv4') {
-		return pIP.match(parseCIDR(VERCEL_IPV4));
+		return pIP.match(ipaddr.parseCIDR(VERCEL_IPV4));
 	}
 
 	return false;
