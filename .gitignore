@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Node.js
+node_modules/
+
+# SvelteKit
+/build
+/.svelte-kit
+/package
+
+# environment variables
+.env
+.env.*
+!.env.example
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
