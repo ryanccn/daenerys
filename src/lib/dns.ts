@@ -13,7 +13,7 @@ export const enum DNSRecordType {
 }
 
 export interface DOHResponse {
-	/** The Response Code of the DNS Query. These are defined here: https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-6. */
+	/** The Response Code of the DNS internalQuery. These are defined here: https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-6. */
 	Status: number;
 
 	/** If true, it means the truncated bit was set. This happens when the DNS answer is larger than a single UDP or TCP packet. TC will almost always be false with Cloudflare DNS over HTTPS because Cloudflare supports the maximum response size. */
@@ -53,7 +53,7 @@ export interface DOHError {
 	error: string;
 }
 
-const query = async (name: string, type: string) => {
+const internalQuery = async (name: string, type: string) => {
 	const fetchUrl = new URL(DOH_ENDPOINT);
 	fetchUrl.searchParams.set('name', name);
 	if (type) fetchUrl.searchParams.set('type', type);
@@ -68,40 +68,65 @@ const query = async (name: string, type: string) => {
 	return data;
 };
 
-export const queryA = async (name: string) => {
-	const data = await query(name, 'A');
+const queryA = async (name: string) => {
+	const data = await internalQuery(name, 'A');
 	if (!data.Answer) return null;
 
 	return data.Answer.map((k) => k.data);
 };
 
-export const queryAAAA = async (name: string) => {
-	const data = await query(name, 'AAAA');
+const queryAAAA = async (name: string) => {
+	const data = await internalQuery(name, 'AAAA');
 	if (!data.Answer) return null;
 
 	return data.Answer.map((k) => k.data);
 };
 
-export const queryCNAME = async (name: string) => {
-	const data = await query(name, 'CNAME');
+const queryCNAME = async (name: string) => {
+	const data = await internalQuery(name, 'CNAME');
 	if (!data.Answer) return null;
 
 	return data.Answer.map((k) => k.data);
 };
 
-export const queryTXT = async (name: string) => {
-	const data = await query(name, 'TXT');
+const queryTXT = async (name: string) => {
+	const data = await internalQuery(name, 'TXT');
 	if (!data.Answer) return null;
 
 	return data.Answer.map((k) => k.data.substring(1, k.data.length - 1));
 };
 
-export const queryMX = async (name: string) => {
-	const data = await query(name, 'MX');
+const queryMX = async (name: string) => {
+	const data = await internalQuery(name, 'MX');
 	if (!data.Answer) return null;
 
 	return data.Answer.filter((k) => k.type === DNSRecordType.MX).map((k) => {
 		const fragments = k.data.split(' ');
 		return { name: fragments[1], priority: Number(fragments[0]) };
 	});
+};
+
+export interface DNSQueryResponse {
+	a: string[] | null;
+	aaaa: string[] | null;
+	cname: string[] | null;
+	mx:
+		| {
+				name: string;
+				priority: number;
+		  }[]
+		| null;
+	txt: string[] | null;
+}
+
+export const query = async (fqdn: string): Promise<DNSQueryResponse> => {
+	const [a, aaaa, cname, mx, txt] = await Promise.all([
+		queryA(fqdn),
+		queryAAAA(fqdn),
+		queryCNAME(fqdn),
+		queryMX(fqdn),
+		queryTXT(fqdn),
+	]);
+
+	return { a, aaaa, cname, mx, txt };
 };

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { fqdnBar } from '~/lib/stores';
-	import { CheckCircle, XCircle } from 'lucide-svelte';
+	import { CheckCircle } from 'lucide-svelte';
+
 	import { isCloudflareIP, isVercelIP } from '~/lib/ipIdentifiers';
 	import CloudflareIcon from '~/components/CloudflareIcon.svelte';
 	import VercelIcon from '~/components/VercelIcon.svelte';
@@ -15,115 +16,26 @@
 
 	<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
 		<div class="flex flex-col rounded-xl p-10 bg-stone-100">
-			<h2 class="text-2xl font-bold mb-4">Hosting</h2>
-			<p class="text-stone-400">None found</p>
-		</div>
-
-		<div class="flex flex-col rounded-xl p-10 bg-stone-100">
 			<h2 class="text-2xl font-bold mb-4">Email</h2>
 			<ul class="flex flex-col gap-y-1">
-				{#if data.mailResults.gSuite}
+				{#each data.mailResults as result (result.id)}
 					<li class="flex flex-row gap-x-2 items-center">
 						<CheckCircle class="block w-4 h-4 text-green-500" />
-						<span>G Suite</span>
+						<span>{result.name}</span>
 					</li>
-				{/if}
-				{#if data.mailResults.outlook}
-					<li class="flex flex-row gap-x-2 items-center">
-						<CheckCircle class="block w-4 h-4 text-green-500" />
-						<span>Outlook</span>
-					</li>
-				{/if}
-				{#if data.mailResults.tutanota}
-					<li class="flex flex-row gap-x-2 items-center">
-						<CheckCircle class="block w-4 h-4 text-green-500" />
-						<span>Tutanota</span>
-					</li>
-				{/if}
-				{#if data.mailResults.zoho}
-					<li class="flex flex-row gap-x-2 items-center">
-						<CheckCircle class="block w-4 h-4 text-green-500" />
-						<span>Zoho</span>
-					</li>
-				{/if}
-				{#if data.mailResults.fastmail}
-					<li class="flex flex-row gap-x-2 items-center">
-						<CheckCircle class="block w-4 h-4 text-green-500" />
-						<span>Fastmail</span>
-					</li>
-				{/if}
-				{#if data.mailResults.mailgun}
-					<li class="flex flex-row gap-x-2 items-center">
-						<CheckCircle class="block w-4 h-4 text-green-500" />
-						<span>Mailgun</span>
-					</li>
-				{/if}
-				{#if !Object.values(data.mailResults).filter((k) => k).length}
-					<li class="text-stone-400">None found</li>
-				{/if}
+				{/each}
 			</ul>
 		</div>
 
 		<div class="flex flex-col rounded-xl p-10 bg-stone-100">
 			<h2 class="text-2xl font-bold mb-4">Verifications</h2>
 			<ul class="flex flex-col gap-y-1">
-				{#if data.verificationResults.googleSearchConsole}
+				{#each data.verificationResults as result (result.id)}
 					<li class="flex flex-row gap-x-2 items-center">
 						<CheckCircle class="block w-4 h-4 text-green-500" />
-						<span>Google Search Console</span>
+						<span>{result.name}</span>
 					</li>
-				{/if}
-				{#if data.verificationResults.keybase}
-					<li class="flex flex-row gap-x-2 items-center">
-						<CheckCircle class="block w-4 h-4 text-green-500" />
-						<span>Keybase</span>
-					</li>
-				{/if}
-				{#if data.verificationResults.tutanota}
-					<li class="flex flex-row gap-x-2 items-center">
-						<CheckCircle class="block w-4 h-4 text-green-500" />
-						<span>Tutanota</span>
-					</li>
-				{/if}
-				{#if data.verificationResults.zoho}
-					<li class="flex flex-row gap-x-2 items-center">
-						<CheckCircle class="block w-4 h-4 text-green-500" />
-						<span>Zoho</span>
-					</li>
-				{/if}
-				{#if data.verificationResults.stripe}
-					<li class="flex flex-row gap-x-2 items-center">
-						<CheckCircle class="block w-4 h-4 text-green-500" />
-						<span>Stripe</span>
-					</li>
-				{/if}
-				{#if data.verificationResults.apple}
-					<li class="flex flex-row gap-x-2 items-center">
-						<CheckCircle class="block w-4 h-4 text-green-500" />
-						<span>Apple</span>
-					</li>
-				{/if}
-				{#if data.verificationResults.zoom}
-					<li class="flex flex-row gap-x-2 items-center">
-						<CheckCircle class="block w-4 h-4 text-green-500" />
-						<span>Zoom</span>
-					</li>
-				{/if}
-				{#if data.verificationResults.notion}
-					<li class="flex flex-row gap-x-2 items-center">
-						<CheckCircle class="block w-4 h-4 text-green-500" />
-						<span>Notion</span>
-					</li>
-				{/if}
-				{#if data.verificationResults.notion}
-					<li class="flex flex-row gap-x-2 items-center">
-						<CheckCircle class="block w-4 h-4 text-green-500" />
-						<span>Docusign</span>
-					</li>
-				{/if}
-				{#if !Object.values(data.verificationResults).filter((k) => k).length}
-					<li class="text-stone-400">None found</li>
-				{/if}
+				{/each}
 			</ul>
 		</div>
 	</div>

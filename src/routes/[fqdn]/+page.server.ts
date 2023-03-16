@@ -1,6 +1,11 @@
 import { error } from '@sveltejs/kit';
-import { queryA, queryAAAA, queryCNAME, queryMX, queryTXT } from '~/lib/dns';
+
+import { query } from '~/lib/dns';
 import { isFQDN } from '~/lib/fqdn';
+
+import { matchDaenerysRule } from '~/lib/rules';
+import { mail } from '~/lib/rules/mail';
+import { verifications } from '~/lib/rules/verification';
 
 export const config = {
 	isr: {
@@ -13,47 +18,21 @@ export const load = async ({ params }) => {
 		throw error(404, 'Invalid FQDN');
 	}
 
-	const [a, aaaa, cname, mx, txt] = await Promise.all([
-		queryA(params.fqdn),
-		queryAAAA(params.fqdn),
-		queryCNAME(params.fqdn),
-		queryMX(params.fqdn),
-		queryTXT(params.fqdn),
-	]);
+	const dnsQueryResponse = await query(params.fqdn);
 
-	const mailResults = {
-		gSuite:
-			!!mx &&
-			mx.filter((k) => k.name.endsWith('google.com.') || k.name.endsWith('googlemail.com.'))
-				.length > 0,
-		outlook: !!mx && mx.filter((k) => k.name.endsWith('.outlook.com.')).length > 0,
-		tutanota: !!mx && mx.filter((k) => k.name === 'mail.tutanota.de.').length > 0,
-		zoho:
-			!!mx &&
-			mx.filter((k) => k.name.endsWith('zoho.com.') || k.name.endsWith('zoho.eu.')).length > 0,
-		fastmail: !!mx && mx.filter((k) => k.name.endsWith('messagingengine.com.')).length > 0,
-		mailgun:
-			!!txt &&
-			txt.filter((k) => k.startsWith('v=spf') && k.includes('include:mailgun.org')).length > 0,
-	};
+	const mailResults = mail
+		.filter((k) => matchDaenerysRule(dnsQueryResponse, k))
+		.map((k) => ({ id: k.id, name: k.name }));
+	const verificationResults = verifications
+		.filter((k) => matchDaenerysRule(dnsQueryResponse, k))
+		.map((k) => ({ id: k.id, name: k.name }));
 
-	const verificationResults = {
-		googleSearchConsole:
-			!!txt && txt.filter((k) => k.startsWith('google-site-verification=')).length > 0,
-		keybase: !!txt && txt.filter((k) => k.startsWith('keybase-site-verification=')).length > 0,
-		tutanota: !!txt && txt.filter((k) => k.startsWith('t-verify=')).length > 0,
-		zoho: !!txt && txt.filter((k) => k.startsWith('zoho-verification=')).length > 0,
-		stripe: !!txt && txt.filter((k) => k.startsWith('stripe-verification=')).length > 0,
-		apple: !!txt && txt.filter((k) => k.startsWith('apple-domain-verification=')).length > 0,
-		zoom: !!txt && txt.filter((k) => k.startsWith('ZOOM_verify_')).length > 0,
-		notion: !!txt && txt.filter((k) => k.startsWith('Notion_verify_')).length > 0,
-		docusign: !!txt && txt.filter((k) => k.startsWith('docusign=')).length > 0,
-	};
-
-	return {
+	const data = {
 		fqdn: params.fqdn,
-		records: { a, aaaa, cname, mx, txt },
+		records: dnsQueryResponse,
 		mailResults,
 		verificationResults,
 	};
+
+	return data;
 };
