@@ -39,11 +39,41 @@ export const verifications = [
 	{
 		id: 'notion',
 		name: 'Notion',
-		txt: (txt) => txt.filter((k) => k.startsWith('Notion_verify_')).length > 0,
+		txt: (txt) =>
+			txt.filter(
+				(k) =>
+					k.toLowerCase().startsWith('notion_verify_') ||
+					k.toLowerCase().startsWith('notion-domain-verification=')
+			).length > 0,
 	},
 	{
 		id: 'docusign',
 		name: 'Docusign',
 		txt: (txt) => txt.filter((k) => k.startsWith('docusign=')).length > 0,
+	},
+	{
+		id: 'loom',
+		name: 'Loom',
+		txt: (txt) => txt.filter((k) => k.startsWith('loom-verification=')).length > 0,
+	},
+	{
+		id: 'atlassian',
+		name: 'Atlassian',
+		txt: (txt) => txt.filter((k) => k.startsWith('atlassian-domain-verification=')).length > 0,
+	},
+	{
+		id: 'statuspage',
+		name: 'StatusPage',
+		txt: (txt) => txt.filter((k) => k.startsWith('status-page-domain-verification=')).length > 0,
+	},
+	{
+		id: 'dropbox',
+		name: 'Dropbox',
+		txt: (txt) => txt.filter((k) => k.startsWith('dropbox-domain-verification=')).length > 0,
+	},
+	{
+		id: 'fastly',
+		name: 'Fastly',
+		txt: (txt) => txt.filter((k) => k.startsWith('fastly-domain-delegation-')).length > 0,
 	},
 ] satisfies DaenerysRule[];
