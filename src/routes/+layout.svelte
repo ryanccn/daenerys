@@ -32,7 +32,7 @@
 			on:keydown={searchEntry}
 		/>
 	</div>
-	<div class="px-4 lg:px-24 mb-36">
+	<div class="px-8 lg:px-24 mb-36">
 		<slot />
 	</div>
 </div>

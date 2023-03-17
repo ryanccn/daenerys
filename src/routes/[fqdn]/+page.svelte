@@ -11,6 +11,10 @@
 	$fqdnBar = data.fqdn;
 </script>
 
+<svelte:head>
+	<title>{data.fqdn} · Daenerys</title>
+</svelte:head>
+
 <div class="flex flex-col">
 	<h1 class="text-5xl font-extrabold tracking-tight mb-12">{data.fqdn}</h1>
 
