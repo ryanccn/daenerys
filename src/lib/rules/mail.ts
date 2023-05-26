@@ -5,99 +5,85 @@ export const mail = [
 		id: 'g-suite',
 		name: 'G Suite',
 		mx: (mx) =>
-			mx.filter((k) => k.name.endsWith('google.com.') || k.name.endsWith('googlemail.com.'))
-				.length > 0,
+			mx.some((k) => k.name.endsWith('google.com.') || k.name.endsWith('googlemail.com.')),
 	},
 	{
 		id: 'outlook',
 		name: 'Outlook',
-		mx: (mx) => mx.filter((k) => k.name.endsWith('.outlook.com.')).length > 0,
+		mx: (mx) => mx.some((k) => k.name.endsWith('.outlook.com.')),
 	},
 	{
 		id: 'tutanota',
 		name: 'Tutanota',
-		mx: (mx) => mx.filter((k) => k.name === 'mail.tutanota.de.').length > 0,
-		txt: (txt) =>
-			txt.filter((k) => k.startsWith('v=spf') && k.includes('include:spf.tutanota.de')).length > 0,
+		mx: (mx) => mx.some((k) => k.name === 'mail.tutanota.de.'),
+		txt: (txt) => txt.some((k) => k.startsWith('v=spf') && k.includes('include:spf.tutanota.de')),
 	},
 	{
 		id: 'zoho',
 		name: 'Zoho',
-		mx: (mx) =>
-			mx.filter((k) => k.name.endsWith('zoho.com.') || k.name.endsWith('zoho.eu.')).length > 0,
+		mx: (mx) => mx.some((k) => k.name.endsWith('zoho.com.') || k.name.endsWith('zoho.eu.')),
 	},
 	{
 		id: 'fastmail',
 		name: 'Fastmail',
-		mx: (mx) => mx.filter((k) => k.name.endsWith('messagingengine.com.')).length > 0,
+		mx: (mx) => mx.some((k) => k.name.endsWith('messagingengine.com.')),
 		txt: (txt) =>
-			txt.filter((k) => k.startsWith('v=spf') && k.includes('include:spf.messagingengine.com'))
-				.length > 0,
+			txt.some((k) => k.startsWith('v=spf') && k.includes('include:spf.messagingengine.com')),
 	},
 	{
 		id: 'hey',
 		name: 'HEY',
-		mx: (mx) => mx.filter((k) => k.name.endsWith('hey.com.')).length > 0,
-		txt: (txt) =>
-			txt.filter((k) => k.startsWith('v=spf') && k.includes('include:_spf.hey.com')).length > 0,
+		mx: (mx) => mx.some((k) => k.name.endsWith('hey.com.')),
+		txt: (txt) => txt.some((k) => k.startsWith('v=spf') && k.includes('include:_spf.hey.com')),
 	},
 	{
 		id: 'mailgun',
 		name: 'Mailgun',
-		txt: (txt) =>
-			txt.filter((k) => k.startsWith('v=spf') && k.includes('include:mailgun.org')).length > 0,
+		txt: (txt) => txt.some((k) => k.startsWith('v=spf') && k.includes('include:mailgun.org')),
 	},
 	{
 		id: 'amazon-ses',
 		name: 'Amazon SES',
-		txt: (txt) =>
-			txt.filter((k) => k.startsWith('v=spf') && k.includes('include:amazonses.com')).length > 0,
+		txt: (txt) => txt.some((k) => k.startsWith('v=spf') && k.includes('include:amazonses.com')),
 	},
 	{
 		id: 'sendgrid',
 		name: 'SendGrid',
-		txt: (txt) =>
-			txt.filter((k) => k.startsWith('v=spf') && k.includes('include:sendgrid.net')).length > 0,
+		txt: (txt) => txt.some((k) => k.startsWith('v=spf') && k.includes('include:sendgrid.net')),
 	},
 	{
 		id: 'mandrill',
 		name: 'Mandrill',
 		txt: (txt) =>
-			txt.filter((k) => k.startsWith('v=spf') && k.includes('include:spf.mandrillapp.com')).length >
-			0,
+			txt.some((k) => k.startsWith('v=spf') && k.includes('include:spf.mandrillapp.com')),
 	},
 	{
 		id: 'salesforce',
 		name: 'Salesforce',
 		txt: (txt) =>
-			txt.filter((k) => k.startsWith('v=spf') && k.includes('include:_spf.salesforce.com')).length >
-			0,
+			txt.some((k) => k.startsWith('v=spf') && k.includes('include:_spf.salesforce.com')),
 	},
 	{
 		id: 'digitalocean',
-		name: 'Digitalocean',
+		name: 'DigitalOcean',
 		txt: (txt) =>
-			txt.filter((k) => k.startsWith('v=spf') && k.includes('include:spf.digitalocean.com'))
-				.length > 0,
+			txt.some((k) => k.startsWith('v=spf') && k.includes('include:spf.digitalocean.com')),
 	},
 	{
 		id: 'greenhouse',
 		name: 'Greenhouse',
 		txt: (txt) =>
-			txt.filter((k) => k.startsWith('v=spf') && k.includes('include:mg-spf.greenhouse.io'))
-				.length > 0,
+			txt.some((k) => k.startsWith('v=spf') && k.includes('include:mg-spf.greenhouse.io')),
 	},
 	{
 		id: 'helpscout',
 		name: 'Helpscout',
 		txt: (txt) =>
-			txt.filter((k) => k.startsWith('v=spf') && k.includes('include:helpscoutemail.com')).length >
-			0,
+			txt.some((k) => k.startsWith('v=spf') && k.includes('include:helpscoutemail.com')),
 	},
 	{
 		id: 'zendesk',
 		name: 'Zendesk',
-		txt: (txt) =>
-			txt.filter((k) => k.startsWith('v=spf') && k.includes('include:mail.zendesk.com')).length > 0,
+		txt: (txt) => txt.some((k) => k.startsWith('v=spf') && k.includes('include:mail.zendesk.com')),
 	},
 ] satisfies DaenerysRule[];
