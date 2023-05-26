@@ -26,7 +26,7 @@
 		<input
 			type="url"
 			class="px-4 py-2 font-mono text-sm rounded bg-stone-100 grow shadow-sm focus:outline-none focus:ring-2 disabled:opacity-75"
-			placeholder="vercel.com"
+			placeholder="ryanccn.dev"
 			disabled={loading}
 			bind:value={$fqdnBar}
 			on:keydown={searchEntry}
