@@ -92,4 +92,10 @@ export const mail = [
 		mx: (mx) => mx.some((k) => k.name.includes('migadu.com.')),
 		txt: (txt) => txt.some((k) => k.startsWith('v=spf') && k.includes('include:spf.migadu.com')),
 	},
+	{
+		id: 'skiff',
+		name: 'Skiff',
+		mx: (mx) => mx.some((k) => k.name.includes('skiff.com.')),
+		txt: (txt) => txt.some((k) => k.startsWith('v=spf') && k.includes('spf.migadu.com')),
+	},
 ] satisfies DaenerysRule[];
