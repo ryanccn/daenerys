@@ -12,6 +12,7 @@ node_modules/
 /build
 /.svelte-kit
 /package
+.vercel/
 
 # environment variables
 .env
