@@ -27,7 +27,7 @@
 		<div class="flex flex-grow flex-row items-center gap-x-4">
 			<input
 				type="url"
-				class="grow rounded bg-stone-100 px-4 py-3 font-mono text-sm shadow-sm focus:outline-none focus:ring-2 disabled:opacity-75"
+				class="grow rounded bg-stone-100 px-4 py-3 font-mono text-sm shadow-sm focus:outline-none focus:ring-2 disabled:opacity-75 dark:bg-stone-900"
 				placeholder="ryanccn.dev"
 				disabled={loading}
 				bind:value={$fqdnBar}
@@ -35,12 +35,12 @@
 			/>
 			<button
 				class="rounded bg-gradient-to-br from-rose-500 to-purple-500 px-4 py-3 text-sm font-medium text-white disabled:opacity-75"
-				disabled={$fqdnBar.length === 0}
+				disabled={loading || $fqdnBar.length === 0}
 				on:click={() => {
 					goto(`/${$fqdnBar}`);
 				}}
 			>
-				Query &rightarrow;
+				Query
 			</button>
 		</div>
 	</div>

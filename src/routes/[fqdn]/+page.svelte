@@ -19,7 +19,7 @@
 	<h1 class="mb-16 text-5xl font-extrabold tracking-tight">{data.fqdn}</h1>
 
 	<div class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
-		<div class="flex flex-col rounded-xl bg-stone-100 p-10">
+		<div class="flex flex-col rounded-xl bg-stone-100 p-10 dark:bg-stone-900">
 			<h2 class="mb-4 text-2xl font-bold">Email</h2>
 			<ul class="flex flex-col gap-y-1">
 				{#each data.mailResults as result (result.id)}
@@ -31,7 +31,7 @@
 			</ul>
 		</div>
 
-		<div class="flex flex-col rounded-xl bg-stone-100 p-10">
+		<div class="flex flex-col rounded-xl bg-stone-100 p-10 dark:bg-stone-900">
 			<h2 class="mb-4 text-2xl font-bold">Verifications</h2>
 			<ul class="flex flex-col gap-y-1">
 				{#each data.verificationResults as result (result.id)}
@@ -44,7 +44,7 @@
 		</div>
 	</div>
 
-	<div class="flex flex-col rounded-xl bg-stone-100 p-10">
+	<div class="flex flex-col rounded-xl bg-stone-100 p-10 dark:bg-stone-900">
 		<h2 class="mb-4 text-2xl font-bold">Raw DNS records</h2>
 
 		<div class="grid grid-cols-1 gap-6 md:grid-cols-2">

@@ -15,13 +15,13 @@
 	<div class="flex flex-row gap-x-4">
 		<a
 			href="https://github.com/ryanccn/daenerys"
-			class="rounded-md border border-neutral-300 px-4 py-3 text-sm font-medium transition-colors hover:border-neutral-400"
+			class="rounded-md border border-stone-300 px-4 py-3 text-sm font-medium transition-colors hover:border-neutral-400 dark:border-stone-700"
 		>
 			Source
 		</a>
 		<a
 			href="https://ryanccn.dev"
-			class="rounded-md border border-neutral-300 px-4 py-3 text-sm font-medium transition-colors hover:border-neutral-400"
+			class="rounded-md border border-stone-300 px-4 py-3 text-sm font-medium transition-colors hover:border-neutral-400 dark:border-stone-700"
 		>
 			A Ryan Cao project
 		</a>

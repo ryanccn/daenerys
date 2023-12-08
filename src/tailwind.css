@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+	body {
+		@apply antialiased;
+		@apply bg-white text-stone-950 dark:bg-stone-950 dark:text-white;
+	}
+}
