@@ -13,7 +13,7 @@
 		"format": "prettier --write ."
 	},
 	"dependencies": {
-		"lucide-svelte": "^0.298.0",
+		"lucide-svelte": "^0.314.0",
 		"tailwind-merge": "^2.1.0",
 		"zod": "^3.22.4"
 	},
