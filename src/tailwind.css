@@ -7,4 +7,9 @@
 		@apply antialiased;
 		@apply bg-white text-stone-950 dark:bg-stone-950 dark:text-white;
 	}
+
+	* {
+		min-width: 0;
+		min-height: 0;
+	}
 }

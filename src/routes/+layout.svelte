@@ -21,7 +21,7 @@
 </script>
 
 <div class="flex flex-col">
-	<div class="mb-16 flex flex-row items-center gap-x-8 px-8 py-4">
+	<div class="mb-16 flex flex-col gap-x-8 gap-y-4 p-8 md:flex-row md:items-center">
 		<a href="/"><h1 class="text-2xl font-bold tracking-tight">Daenerys</h1></a>
 
 		<div class="flex flex-grow flex-row items-center gap-x-4">
